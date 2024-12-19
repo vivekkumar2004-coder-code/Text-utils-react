@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Textformat from "./components/Textformat";
 import AlertMe from "./components/AlertMe";
 import AboutMe from "./components/AboutMe";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 
 function App() {
   const [mode, setMode] = useState("light");
@@ -56,16 +62,8 @@ function App() {
             }
           />
           <Route exact path="/about" element={<AboutMe mode={mode} />} />
-          <Route
-            path="*"
-            element={
-              <Textformat
-                heading="📃 TextUtils 🖇️"
-                mode={mode}
-                showAlert={showalert}
-              />
-            }
-          />
+          {/* Redirect all unknown routes to home */}
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
     </BrowserRouter>
